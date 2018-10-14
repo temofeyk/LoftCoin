@@ -15,6 +15,11 @@ import com.temofey.loftcoin.screens.main.MainActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
+import android.view.animation.LinearInterpolator;
+
 public class StartActivity extends AppCompatActivity implements StartView {
 
     private static final String TAG = "StartActivity";
@@ -56,5 +61,31 @@ public class StartActivity extends AppCompatActivity implements StartView {
     @Override
     public void navigateToMainScreen() {
         MainActivity.startInNewTask(this);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        startAnimations();
+    }
+
+    private void startAnimations() {
+
+        ObjectAnimator innerAnimator = ObjectAnimator.ofFloat(topCorner, "rotation", 0, 360);
+        innerAnimator.setDuration(2500);
+        innerAnimator.setRepeatMode(ValueAnimator.RESTART);
+        innerAnimator.setRepeatCount(ValueAnimator.INFINITE);
+        innerAnimator.setInterpolator(new LinearInterpolator());
+
+        ObjectAnimator outerAnimator = ObjectAnimator.ofFloat(bottomCorner, "rotation", 0, -360);
+        outerAnimator.setDuration(10000);
+        outerAnimator.setRepeatMode(ValueAnimator.RESTART);
+        outerAnimator.setRepeatCount(ValueAnimator.INFINITE);
+        outerAnimator.setInterpolator(new LinearInterpolator());
+
+        AnimatorSet set = new AnimatorSet();
+        set.play(innerAnimator).with(outerAnimator);
+        set.start();
     }
 }
