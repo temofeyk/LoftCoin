@@ -12,5 +12,9 @@
     <string name="main_bottom_navigation_item_accounts">Wallets</string>
     <string name="main_bottom_navigation_item_rate">Rate</string>
     <string name="main_bottom_navigation_item_converter">Converter</string>
+
+    <string name="rate_screen_title">Cryptocurrencies rate</string>
+    <string name="rate_menu_item_sort">Sort</string>
+    <string name="rate_menu_item_currency">Currency</string>
     
 </resources>
