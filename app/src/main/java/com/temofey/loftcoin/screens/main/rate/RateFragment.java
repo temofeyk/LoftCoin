@@ -17,7 +17,9 @@ import android.view.ViewGroup;
 import com.temofey.loftcoin.App;
 import com.temofey.loftcoin.R;
 import com.temofey.loftcoin.data.api.Api;
-import com.temofey.loftcoin.data.api.model.Coin;
+import com.temofey.loftcoin.data.db.Database;
+import com.temofey.loftcoin.data.db.model.CoinEntity;
+import com.temofey.loftcoin.data.db.model.CoinEntityMapper;
 import com.temofey.loftcoin.data.prefs.Prefs;
 
 import java.util.List;
@@ -27,7 +29,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 
-public class RateFragment extends Fragment implements RateView{
+public class RateFragment extends Fragment implements RateView {
 
     @BindView(R.id.rate_recycler)
     RecyclerView recycler;
@@ -59,8 +61,10 @@ public class RateFragment extends Fragment implements RateView{
 
         Api api = ((App) getActivity().getApplication()).getApi();
         Prefs prefs = ((App) getActivity().getApplication()).getPrefs();
+        Database database = ((App) getActivity().getApplication()).getDatabase();
+        CoinEntityMapper mapper = new CoinEntityMapper();
 
-        presenter = new RatePresenterImpl(api, prefs);
+        presenter = new RatePresenterImpl(api, prefs, database, mapper);
 
         adapter = new RateAdapter(prefs);
         adapter.setHasStableIds(true);
@@ -103,7 +107,7 @@ public class RateFragment extends Fragment implements RateView{
 
 
     @Override
-    public void setCoins(List<Coin> coins) {
+    public void setCoins(List<CoinEntity> coins) {
         adapter.setCoins(coins);
     }
 
