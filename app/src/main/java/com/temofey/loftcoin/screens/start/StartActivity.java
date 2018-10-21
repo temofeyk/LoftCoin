@@ -10,6 +10,8 @@ import com.temofey.loftcoin.App;
 import com.temofey.loftcoin.R;
 import com.temofey.loftcoin.data.api.Api;
 import com.temofey.loftcoin.data.prefs.Prefs;
+import com.temofey.loftcoin.data.db.Database;
+import com.temofey.loftcoin.data.db.model.CoinEntityMapper;
 import com.temofey.loftcoin.screens.main.MainActivity;
 
 import butterknife.BindView;
@@ -46,8 +48,10 @@ public class StartActivity extends AppCompatActivity implements StartView {
 
         Api api = ((App) getApplication()).getApi();
         Prefs prefs = ((App) getApplication()).getPrefs();
+        Database database = ((App) getApplication()).getDatabase();
+        CoinEntityMapper mapper = new CoinEntityMapper();
 
-        presenter = new StartPresenterImpl(api, prefs);
+        presenter = new StartPresenterImpl(api, prefs, database, mapper);
         presenter.attachView(this);
         presenter.loadRate();
     }
