@@ -3,6 +3,7 @@ package com.temofey.loftcoin.screens.main.rate;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -23,6 +24,7 @@ import com.temofey.loftcoin.data.db.model.CoinEntityMapper;
 import com.temofey.loftcoin.data.prefs.Prefs;
 
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,6 +32,8 @@ import butterknife.Unbinder;
 
 
 public class RateFragment extends Fragment implements RateView {
+
+    private static final String LAYOUT_MANAGER_STATE = "layout_manager_state";
 
     @BindView(R.id.rate_recycler)
     RecyclerView recycler;
@@ -47,6 +51,8 @@ public class RateFragment extends Fragment implements RateView {
     private RatePresenter presenter;
     private RateAdapter adapter;
     private Unbinder unbinder;
+
+    private Parcelable layoutMangerState;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -71,7 +77,7 @@ public class RateFragment extends Fragment implements RateView {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_rate, container, false);
     }
 
@@ -86,12 +92,11 @@ public class RateFragment extends Fragment implements RateView {
         recycler.setHasFixedSize(true);
         recycler.setAdapter(adapter);
 
-        refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                presenter.onRefresh();
-            }
-        });
+        refresh.setOnRefreshListener(() -> presenter.onRefresh());
+
+        if (savedInstanceState != null) {
+            layoutMangerState = savedInstanceState.getParcelable(LAYOUT_MANAGER_STATE);
+        }
 
 
         presenter.attachView(this);
@@ -105,10 +110,21 @@ public class RateFragment extends Fragment implements RateView {
         super.onDestroyView();
     }
 
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putParcelable(LAYOUT_MANAGER_STATE, Objects.requireNonNull(recycler.getLayoutManager()).onSaveInstanceState());
+        super.onSaveInstanceState(outState);
+    }
+
 
     @Override
     public void setCoins(List<CoinEntity> coins) {
         adapter.setCoins(coins);
+
+        if (layoutMangerState != null) {
+            Objects.requireNonNull(recycler.getLayoutManager()).onRestoreInstanceState(layoutMangerState);
+            layoutMangerState = null;
+        }
     }
 
     @Override
