@@ -20,6 +20,9 @@ import com.temofey.loftcoin.App;
 import com.temofey.loftcoin.R;
 import com.temofey.loftcoin.data.db.Database;
 import com.temofey.loftcoin.data.model.Currency;
+import com.temofey.loftcoin.data.db.model.CoinEntity;
+import com.temofey.loftcoin.screens.currencies.CurrenciesBottomSheet;
+import com.temofey.loftcoin.screens.currencies.CurrenciesBottomSheetListener;
 
 import java.util.Objects;
 import java.util.Random;
@@ -28,9 +31,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
 
 public class ConverterFragment extends Fragment {
+
+    private static final String SOURCE_CURRENCY_BOTTOM_SHEET_TAG = "source_currency_bottom_sheet";
+    private static final String DESTINATION_CURRENCY_BOTTOM_SHEET_TAG = "destination_currency_bottom_sheet";
 
     @BindView(R.id.converter_toolbar)
     Toolbar toolbar;
@@ -105,6 +110,15 @@ public class ConverterFragment extends Fragment {
             sourceAmount.setText("1");
         }
 
+        Fragment bottomSheetSource = Objects.requireNonNull(getFragmentManager()).findFragmentByTag(SOURCE_CURRENCY_BOTTOM_SHEET_TAG);
+        if (bottomSheetSource != null) {
+            ((CurrenciesBottomSheet) bottomSheetSource).setListener(sourceListener);
+        }
+
+        Fragment bottomSheetDestination = getFragmentManager().findFragmentByTag(DESTINATION_CURRENCY_BOTTOM_SHEET_TAG);
+        if (bottomSheetDestination != null) {
+            ((CurrenciesBottomSheet) bottomSheetDestination).setListener(destinationListner);
+        }
         initOutputs();
         initInputs();
     }
@@ -139,7 +153,42 @@ public class ConverterFragment extends Fragment {
         disposables.add(viewModel.destinationAmount().subscribe(s ->
                 destinationAmount.setText(s)
         ));
+
+        disposables.add(viewModel.selectSourceCurrency().subscribe(o ->
+                showCurrenciesBottomSheet(true)
+        ));
+
+        disposables.add(viewModel.selectDestinationCurrency().subscribe(o ->
+                showCurrenciesBottomSheet(false)
+        ));
     }
+
+    private void showCurrenciesBottomSheet(boolean source) {
+        CurrenciesBottomSheet bottomSheet = new CurrenciesBottomSheet();
+
+        if (source) {
+            bottomSheet.show(Objects.requireNonNull(getFragmentManager()), SOURCE_CURRENCY_BOTTOM_SHEET_TAG);
+            bottomSheet.setListener(sourceListener);
+        } else {
+            bottomSheet.show(Objects.requireNonNull(getFragmentManager()), DESTINATION_CURRENCY_BOTTOM_SHEET_TAG);
+            bottomSheet.setListener(destinationListner);
+        }
+
+    }
+
+    private CurrenciesBottomSheetListener sourceListener = new CurrenciesBottomSheetListener() {
+        @Override
+        public void onCurrencySelected(CoinEntity coin) {
+            viewModel.onSourceCurrencySelected(coin);
+        }
+    };
+
+    private CurrenciesBottomSheetListener destinationListner = new CurrenciesBottomSheetListener() {
+        @Override
+        public void onCurrencySelected(CoinEntity coin) {
+            viewModel.onDestinationCurrencySelected(coin);
+        }
+    };
 
     private Random random = new Random();
 

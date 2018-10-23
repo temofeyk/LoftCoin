@@ -33,4 +33,7 @@
 
     <string name="converter_screen_title">Конвертер</string>
 
+    <string name="currencies_bottom_sheet_title">Выбор валюты</string>
+    <string name="currencies_bottom_sheet_currency_name" translatable="false">%s | %s</string>
+
 </resources>
