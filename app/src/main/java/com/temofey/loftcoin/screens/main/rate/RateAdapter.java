@@ -87,22 +87,14 @@ public class RateAdapter extends RecyclerView.Adapter<RateAdapter.RateViewHolder
 
         private CurrencyFormatter currencyFormatter = new CurrencyFormatter();
 
-        private static int[] colors = {
-                0xFFF5FF30,
-                0xFFFFFFFF,
-                0xFF2ABDF5,
-                0xFFFF7416,
-                0xFFFF7416,
-                0xFF534FFF,
-        };
-
+        private int[] colors;
 
         RateViewHolder(View itemView, Prefs prefs) {
             super(itemView);
 
             context = itemView.getContext();
             this.prefs = prefs;
-
+            this.colors = context.getResources().getIntArray(R.array.CryptoCurrenciesColors);
             ButterKnife.bind(this, itemView);
         }
 

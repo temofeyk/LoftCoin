@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer-array name="CryptoCurrenciesColors">
+        <item>0xFFF5FF30</item>
+        <item>0xFFFFFFFF</item>
+        <item>0xFF2ABDF5</item>
+        <item>0xFFFF7416</item>
+        <item>0xFFFF7416</item>
+        <item>0xFF534FFF</item>
+    </integer-array>
+</resources>
