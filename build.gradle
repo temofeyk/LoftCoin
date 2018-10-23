@@ -9,6 +9,8 @@ project.ext {
     okhttp_ver = "3.10.0"
     constraint_layout_ver = "1.1.3"
     room_ver = "1.1.1"
+    rx_java_ver = "2.2.2"
+    rx_android_ver = "2.1.0"
 }
 
 buildscript {

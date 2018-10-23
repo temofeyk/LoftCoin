@@ -22,6 +22,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -38,6 +43,7 @@ dependencies {
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:$project.retrofit_ver"
     implementation "com.squareup.retrofit2:converter-gson:$project.retrofit_ver"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$project.retrofit_ver"
 
     // OkHttp
     implementation "com.squareup.okhttp3:okhttp:$project.okhttp_ver"
@@ -47,6 +53,11 @@ dependencies {
     implementation "android.arch.persistence.room:runtime:$project.room_ver"
     annotationProcessor "android.arch.persistence.room:compiler:$project.room_ver"
     implementation "android.arch.persistence.room:rxjava2:$project.room_ver"
+
+    // RxJava
+    implementation "io.reactivex.rxjava2:rxjava:$project.rx_java_ver"
+    implementation "io.reactivex.rxjava2:rxandroid:$project.rx_android_ver"
+
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
