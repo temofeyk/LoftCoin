@@ -11,6 +11,7 @@ project.ext {
     room_ver = "1.1.1"
     rx_java_ver = "2.2.2"
     rx_android_ver = "2.1.0"
+    rx_binding_ver = "2.1.1"
 }
 
 buildscript {

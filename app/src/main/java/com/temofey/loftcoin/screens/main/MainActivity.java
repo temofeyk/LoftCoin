@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentTransaction;
 
 import com.temofey.loftcoin.R;
 import com.temofey.loftcoin.screens.main.rate.RateFragment;
+import com.temofey.loftcoin.screens.main.converter.ConverterFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,11 +35,8 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         navigation.setOnNavigationItemSelectedListener(navigationListener);
-        navigation.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
-            @Override
-            public void onNavigationItemReselected(@NonNull MenuItem menuItem) {
+        navigation.setOnNavigationItemReselectedListener(menuItem -> {
 
-            }
         });
 
         if (savedInstanceState == null) {
@@ -46,27 +44,33 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private BottomNavigationView.OnNavigationItemSelectedListener navigationListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-            switch (menuItem.getItemId()) {
-                case R.id.menu_item_accounts:
-                    break;
+    private BottomNavigationView.OnNavigationItemSelectedListener navigationListener = menuItem -> {
+        switch (menuItem.getItemId()) {
+            case R.id.menu_item_accounts:
+                break;
 
-                case R.id.menu_item_rate:
-                    showRateFragment();
-                    break;
+            case R.id.menu_item_rate:
+                showRateFragment();
+                break;
 
-                case R.id.menu_item_converter:
-                    break;
-            }
-
-            return true;
+            case R.id.menu_item_converter:
+                showConverterFragment();
+                break;
         }
+
+        return true;
     };
 
     private void showRateFragment() {
         RateFragment fragment = new RateFragment();
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction transaction = fm.beginTransaction();
+        transaction.replace(R.id.fragment_container, fragment);
+        transaction.commit();
+    }
+
+    private void showConverterFragment() {
+        ConverterFragment fragment = new ConverterFragment();
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();
         transaction.replace(R.id.fragment_container, fragment);
