@@ -26,4 +26,7 @@
     <string name="converter_currency_hint">Amount</string>
     <string name="currencies_bottom_sheet_title">Select currency</string>
 
+    <string name="wallets_menu_item_new_wallet">New wallet</string>
+    <string name="accounts_screen_title">Wallets</string>
+
 </resources>

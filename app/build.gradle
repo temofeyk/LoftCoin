@@ -59,6 +59,8 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxandroid:$project.rx_android_ver"
     implementation "com.jakewharton.rxbinding2:rxbinding:$project.rx_binding_ver"
 
+    // ViewModel and LiveData
+    implementation "android.arch.lifecycle:extensions:$project.lifecycle_ver"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
