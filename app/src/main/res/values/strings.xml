@@ -1,6 +1,5 @@
 <resources>
-    <string name="app_name">LoftCoin</string>
-    <string name="loftcoin" translatable="false">LoftCoin</string>
+    <string name="app_name" translatable="false">LoftCoin</string>
 
     <string name="welcome_title_1">Покупка и продажа</string>
     <string name="welcome_title_2">Курс криптовалют</string>
@@ -23,9 +22,9 @@
     <string name="currency_amount" translatable="false">%s %s</string>
 
     <string name="dialog_currency_title">Выбор валюты</string>
-    <string name="dialog_currency_dollar">Dollar | USD</string>
-    <string name="dialog_currency_euro">Euro | EUR</string>
-    <string name="dialog_currency_rouble">Rouble | RUB</string>
+    <string name="dialog_currency_dollar">Доллар | USD</string>
+    <string name="dialog_currency_euro">Евро | EUR</string>
+    <string name="dialog_currency_rouble">Рубль | RUB</string>
 
     <string name="symbol_usd" translatable="false">$</string>
     <string name="symbol_rub" translatable="false">₽</string>
@@ -35,5 +34,8 @@
 
     <string name="currencies_bottom_sheet_title">Выбор валюты</string>
     <string name="currencies_bottom_sheet_currency_name" translatable="false">%s | %s</string>
+
+    <string name="wallets_menu_item_new_wallet">Новый кошелёк</string>
+    <string name="accounts_screen_title">Кошельки</string>
 
 </resources>

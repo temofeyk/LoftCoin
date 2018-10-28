@@ -28,6 +28,8 @@
     <color name="red_accent200">#ff4465</color>
     <color name="amber400">#f6ca1d</color>
 
+    <color name="wallet_card_background">@color/grey_60</color>d
+
     <color name="grey_5">#9c9eb9</color>
     <color name="grey_10">#66688f</color>
     <color name="grey_20">#51526b</color>

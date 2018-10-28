@@ -23,7 +23,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
-public class CurrenciesBottomSheet extends BottomSheetDialogFragment implements CurrenciesAdapterListener  {
+public class CurrenciesBottomSheet extends BottomSheetDialogFragment implements CurrenciesAdapterListener {
+
+    public static final String TAG = "CurrenciesBottomSheet";
 
     @BindView(R.id.recycler)
     RecyclerView recycler;
