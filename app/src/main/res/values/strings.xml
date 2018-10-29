@@ -36,4 +36,5 @@
 
     <string name="wallets_menu_item_new_wallet">New wallet</string>
     <string name="accounts_screen_title">Wallets</string>
+    <string name="transaction">transaction</string>
 </resources>
