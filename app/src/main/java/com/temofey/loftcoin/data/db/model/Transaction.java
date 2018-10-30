@@ -1,27 +1,24 @@
 package com.temofey.loftcoin.data.db.model;
 
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.PrimaryKey;
+import io.realm.RealmObject;
 
-@Entity
-public class Transaction {
+public class Transaction extends RealmObject {
 
-    @PrimaryKey(autoGenerate = true)
-    public int transactionId;
-
-    public String walletId;
-
-    public int currencyId;
+    private String walletId;
 
     public double amount;
 
     public long date;
 
+    public CoinEntity coin;
 
-    public Transaction(String walletId, int currencyId, double amount, long date) {
+    public Transaction() {
+    }
+
+    public Transaction(String walletId, double amount, long date, CoinEntity coin) {
         this.walletId = walletId;
-        this.currencyId = currencyId;
         this.amount = amount;
         this.date = date;
+        this.coin = coin;
     }
 }
