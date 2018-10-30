@@ -24,7 +24,8 @@ import io.reactivex.Observable;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
+
+import java.util.concurrent.TimeUnit;
 
 public class WalletsViewModelImpl extends WalletsViewModel {
 
@@ -137,8 +138,8 @@ public class WalletsViewModelImpl extends WalletsViewModel {
             database.saveTransaction(transactions);
             return new Object();
         })
-                .subscribeOn(Schedulers.io())
-                .subscribe();
+                .debounce(500, TimeUnit.MILLISECONDS)
+                .subscribe(o -> scrollToNewWallet.call());
 
         disposables.add(disposable);
 
