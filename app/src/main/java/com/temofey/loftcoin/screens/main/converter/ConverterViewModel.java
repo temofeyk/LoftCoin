@@ -30,4 +30,6 @@ public interface ConverterViewModel {
 
     void saveState(Bundle outState);
 
+    void onDetach();
+
 }

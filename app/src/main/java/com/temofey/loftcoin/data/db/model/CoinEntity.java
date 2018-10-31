@@ -1,15 +1,12 @@
 package com.temofey.loftcoin.data.db.model;
 
-
-import android.arch.persistence.room.Embedded;
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.PrimaryKey;
-
 import com.temofey.loftcoin.data.model.Fiat;
 
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
-@Entity(tableName = "Coin")
-public class CoinEntity {
+
+public class CoinEntity extends RealmObject {
 
     @PrimaryKey
     public int id;
@@ -18,22 +15,33 @@ public class CoinEntity {
 
     public String symbol;
 
-    public String slug;
+    String slug;
 
-    public int rank;
+    int rank;
 
-    public long updated;
+    long updated;
 
-
-    @Embedded(prefix = "usd_")
     public QuoteEntity usd;
 
-    @Embedded(prefix = "rub_")
     public QuoteEntity rub;
 
-    @Embedded(prefix = "eur_")
     public QuoteEntity eur;
 
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getSymbol() {
+        return symbol;
+    }
+
+    public String getSlug() {
+        return slug;
+    }
 
     public QuoteEntity getQuote(Fiat fiat) {
         QuoteEntity quote = null;

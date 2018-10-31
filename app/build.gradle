@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-
+apply plugin: 'realm-android'
 android {
     compileSdkVersion project.targetSdkVersion
     defaultConfig {
@@ -10,11 +10,6 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
-            }
-        }
     }
     buildTypes {
         release {
@@ -48,11 +43,6 @@ dependencies {
     // OkHttp
     implementation "com.squareup.okhttp3:okhttp:$project.okhttp_ver"
     implementation "com.squareup.okhttp3:logging-interceptor:$project.okhttp_ver"
-
-    // Room
-    implementation "android.arch.persistence.room:runtime:$project.room_ver"
-    annotationProcessor "android.arch.persistence.room:compiler:$project.room_ver"
-    implementation "android.arch.persistence.room:rxjava2:$project.room_ver"
 
     // RxJava
     implementation "io.reactivex.rxjava2:rxjava:$project.rx_java_ver"
