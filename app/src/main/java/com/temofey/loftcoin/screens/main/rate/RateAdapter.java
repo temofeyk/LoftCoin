@@ -31,17 +31,22 @@ public class RateAdapter extends RecyclerView.Adapter<RateAdapter.RateViewHolder
 
     private List<CoinEntity> coins = Collections.emptyList();
 
+    private Listener listener = null;
+
     private Prefs prefs;
 
     RateAdapter(Prefs prefs) {
         this.prefs = prefs;
     }
 
-    public void setCoins(List<CoinEntity> coins) {
+    void setCoins(List<CoinEntity> coins) {
         this.coins = coins;
         notifyDataSetChanged();
     }
 
+    void setListener(Listener listener) {
+        this.listener = listener;
+    }
 
     @NonNull
     @Override
@@ -52,7 +57,7 @@ public class RateAdapter extends RecyclerView.Adapter<RateAdapter.RateViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull RateViewHolder holder, int position) {
-        holder.bind(coins.get(position), position);
+        holder.bind(coins.get(position), position, listener);
     }
 
     @Override
@@ -99,12 +104,13 @@ public class RateAdapter extends RecyclerView.Adapter<RateAdapter.RateViewHolder
         }
 
 
-        void bind(CoinEntity coin, int position) {
+        void bind(CoinEntity coin, int position, Listener listener) {
             bindIcon(coin);
             bindSymbol(coin);
             bindPrice(coin);
             bindPercentage(coin);
             bindBackground(position);
+            bindListener(coin, listener);
         }
 
         private void bindBackground(int position) {
@@ -113,6 +119,15 @@ public class RateAdapter extends RecyclerView.Adapter<RateAdapter.RateViewHolder
             } else {
                 itemView.setBackgroundColor(ContextCompat.getColor(context, R.color.rate_item_background_odd));
             }
+        }
+
+        private void bindListener(CoinEntity coin, Listener listener) {
+            itemView.setOnLongClickListener(v -> {
+                if (listener != null) {
+                    listener.onRateLongClick(coin.symbol);
+                }
+                return true;
+            });
         }
 
         private void bindPercentage(CoinEntity coin) {
@@ -163,5 +178,9 @@ public class RateAdapter extends RecyclerView.Adapter<RateAdapter.RateViewHolder
             }
         }
 
+    }
+
+    interface Listener {
+        void onRateLongClick(String symbol);
     }
 }

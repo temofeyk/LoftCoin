@@ -7,6 +7,7 @@ import com.temofey.loftcoin.data.db.Database;
 import com.temofey.loftcoin.data.db.model.CoinEntityMapper;
 import com.temofey.loftcoin.data.model.Fiat;
 import com.temofey.loftcoin.data.prefs.Prefs;
+import com.temofey.loftcoin.job.JobHelper;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -24,6 +25,7 @@ public class RatePresenterImpl implements RatePresenter {
     private Database mainDatabase;
     private Database workerDatabase;
     private CoinEntityMapper mapper;
+    private JobHelper jobHelper;
 
     private CompositeDisposable disposables = new CompositeDisposable();
 
@@ -31,12 +33,18 @@ public class RatePresenterImpl implements RatePresenter {
     @Nullable
     private RateView view;
 
-    RatePresenterImpl(Api api, Prefs prefs, Database mainDatabase, Database workerDatabase, CoinEntityMapper mapper) {
+    RatePresenterImpl(Api api,
+                      Prefs prefs,
+                      Database mainDatabase,
+                      Database workerDatabase,
+                      CoinEntityMapper mapper,
+                      JobHelper jobHelper) {
         this.api = api;
         this.prefs = prefs;
         this.mainDatabase = mainDatabase;
         this.workerDatabase = workerDatabase;
         this.mapper = mapper;
+        this.jobHelper = jobHelper;
     }
 
 
@@ -132,5 +140,10 @@ public class RatePresenterImpl implements RatePresenter {
     public void onFiatCurrencySelected(Fiat currency) {
         prefs.setFiatCurrency(currency);
         loadRate(false);
+    }
+
+    @Override
+    public void onRateLongClick(String symbol) {
+        jobHelper.startSyncRateJob(symbol);
     }
 }
