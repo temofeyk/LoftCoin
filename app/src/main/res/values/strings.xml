@@ -37,4 +37,8 @@
     <string name="wallets_menu_item_new_wallet">New wallet</string>
     <string name="accounts_screen_title">Wallets</string>
     <string name="transaction">transaction</string>
+
+    <string name="notification_channel_rate_changed">Rate changes</string>
+    <string name="notification_rate_changed_body">Rate changed %s</string>
+    <string name="rate_job_started">Sync rate job for %s started</string>
 </resources>

@@ -28,4 +28,8 @@
     <string name="wallets_menu_item_new_wallet">Новый кошелёк</string>
     <string name="accounts_screen_title">Кошельки</string>
     <string name="transaction">трансакция</string>
+
+    <string name="notification_channel_rate_changed">Изменение курса</string>
+    <string name="notification_rate_changed_body">Курс изменился %s</string>
+    <string name="rate_job_started">Отслеживание курса %s запущено</string>
 </resources>
